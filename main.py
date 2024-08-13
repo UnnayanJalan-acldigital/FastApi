@@ -38,3 +38,10 @@ def update_employee(employee_id: int, update_id:dict):
     employee["id"]=employee_id
     return employee
 
+@app.delete("/employees/{employee_id}")
+def delete_employee(employee_id: int):
+    employee=find_employee(employee_id)
+    if employee is None:
+        raise HTTPException(status_code=404, detail="Employee Not Found")
+    employees.remove(employee)
+    return {"message":"Employee deleted successfully"}
